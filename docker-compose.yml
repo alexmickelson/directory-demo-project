@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: nextuser
+      POSTGRES_PASSWORD: passwordfornextuser
+      POSTGRES_DB: nextdatabase
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - "5432:5432"
