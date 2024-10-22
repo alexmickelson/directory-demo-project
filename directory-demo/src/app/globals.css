@@ -3,18 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  @apply text-emerald-100 bg-emerald-950;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
+button:not(.unstyled) {
+  @apply bg-emerald-400 text-emerald-950;
+  @apply px-3 py-1 m-3 rounded-2xl font-bold;
+  @apply border-emerald-950 border-4;
+  @apply transition-all;
+  @apply hover:bg-emerald-600 hover:text-emerald-200 ;
+  @apply hover:scale-110
 }
