@@ -12,17 +12,17 @@ export default async function Home() {
   const users = await postgresService.getAllUsers();
   const cache = new QueryClient();
 
-  await cache.prefetchQuery({
-    queryKey: directoryKeys.allPeople,
-    queryFn: () => users,
-  });
+  // await cache.prefetchQuery({
+  //   queryKey: directoryKeys.allPeople,
+  //   queryFn: () => users,
+  // });
 
   const dehydrated = dehydrate(cache);
 
   return (
     <div className="">
       <HydrationBoundary state={dehydrated}>
-        <CreateCurrentUser users={users} />
+        <CreateCurrentUser />
         <div className="flex flex-row justify-center">
           <UsersList />
         </div>

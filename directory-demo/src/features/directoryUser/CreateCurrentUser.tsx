@@ -1,21 +1,18 @@
 "use client";
 import React from "react";
-import { DirectoryUser } from "./directoryUser";
 import { useAuth } from "react-oidc-context";
-import { createUserAction } from "./directoryUserServerActions";
+import { useAllPeopleQuery, useCreatePersonMutation } from "./directoryHooks";
 
-export default function CreateCurrentUser({
-  users,
-}: {
-  users: DirectoryUser[];
-}) {
+export default function CreateCurrentUser() {
+  const peopleQuery = useAllPeopleQuery();
   const auth = useAuth();
+  const createUserMutation = useCreatePersonMutation();
 
   if (!auth.isAuthenticated) return <></>;
 
   const username = auth.user?.profile.email ?? "";
 
-  const allEmails = users.map((u) => u.email);
+  const allEmails = peopleQuery.data?.map((u) => u.email) ?? [];
 
   const userIsInDirectory = allEmails.includes(username);
 
@@ -27,11 +24,11 @@ export default function CreateCurrentUser({
         <button
           onClick={() => {
             console.log(auth.user?.profile);
-            createUserAction(
-              auth.user?.profile.given_name ?? "",
-              auth.user?.profile.family_name ?? "",
-              auth.user?.profile.email ?? ""
-            );
+            createUserMutation.mutate({
+              first_name: auth.user?.profile.given_name ?? "",
+              last_name: auth.user?.profile.family_name ?? "",
+              email: auth.user?.profile.email ?? "",
+            });
           }}
         >
           Create current user
