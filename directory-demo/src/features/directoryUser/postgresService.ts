@@ -9,7 +9,6 @@ const pool = new Pool({
   database: process.env.POSTGRES_DB,
 });
 
-
 export const postgresService = {
   createUser: async ({
     first_name,

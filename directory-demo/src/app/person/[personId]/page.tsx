@@ -1,4 +1,4 @@
-import { postgresService } from "@/services/postgresService";
+import { postgresService } from "@/features/directoryUser/postgresService";
 import React from "react";
 
 export default async function Page({

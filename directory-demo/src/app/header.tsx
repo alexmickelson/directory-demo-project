@@ -8,7 +8,7 @@ export default function Header({ username }: { username: string }) {
   const isLoggedIn = username || auth.isAuthenticated;
 
   return (
-    <div className="bg-emerald-900" >
+    <div className="bg-emerald-900">
       {isLoggedIn && (
         <div>
           server side: {username}, client side:{" "}
