@@ -1,29 +1,32 @@
 import CreateCurrentUser from "@/features/directoryUser/CreateCurrentUser";
 import { postgresService } from "@/features/directoryUser/postgresService";
-// import { cookies } from "next/headers";
-import Link from "next/link";
+import UsersList from "../features/directoryUser/UsersList";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { directoryKeys } from "@/features/directoryUser/directoryKeys";
 
 export default async function Home() {
-  // const cookieStore = cookies();
-  // console.log(cookieStore.get("jwt"));
-
   const users = await postgresService.getAllUsers();
+  const cache = new QueryClient();
+
+  await cache.prefetchQuery({
+    queryKey: directoryKeys.allPeople,
+    queryFn: () => users,
+  });
+
+  const dehydrated = dehydrate(cache);
+
   return (
     <div className="">
-      <CreateCurrentUser users={users} />
-      <div className="flex flex-row justify-center">
-        <div className="flex flex-col">
-          {users.map((u) => (
-            <Link
-              key={u.id}
-              href={`/person/${u.id}`}
-              className="my-3 hover:text-gray-50 hover:scale-105 transition-all"
-            >
-              {u.first_name} {u.last_name}
-            </Link>
-          ))}
+      <HydrationBoundary state={dehydrated}>
+        <CreateCurrentUser users={users} />
+        <div className="flex flex-row justify-center">
+          <UsersList />
         </div>
-      </div>
+      </HydrationBoundary>
     </div>
   );
 }

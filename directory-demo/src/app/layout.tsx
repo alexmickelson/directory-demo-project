@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import MyAuthProvider from "@/features/auth/MyAuthProvider";
 import Header from "./header";
-import { ClientAuthUtils } from "@/features/auth/ClientAuthUtils";
 import { getUserFromCookie } from "@/features/auth/getUserFromCookie";
+import { MyQueryProvider } from "./MyQueryProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,16 +16,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const user = await getUserFromCookie();
-  console.log(user);
+  console.log("rendering root layout", user);
+
   return (
     <html lang="en">
       <body>
-        <MyAuthProvider>
-          <ClientAuthUtils>
-            {/* <Header username={user. ?? ""} /> */}
+        <MyQueryProvider>
+          <MyAuthProvider>
+            <Header user={user} />
             {children}
-          </ClientAuthUtils>
-        </MyAuthProvider>
+          </MyAuthProvider>
+        </MyQueryProvider>
       </body>
     </html>
   );

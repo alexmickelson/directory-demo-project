@@ -19,3 +19,8 @@ export async function createUserAction(
     email_status: AttributeStatus.PRIVATE,
   });
 }
+
+
+export async function getAllUsers() {
+  return await postgresService.getAllUsers();
+}
