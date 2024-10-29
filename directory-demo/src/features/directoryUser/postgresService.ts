@@ -29,6 +29,7 @@ export const postgresService = {
     phone_status: AttributeStatus;
     email_status: AttributeStatus;
   }) => {
+    console.log("creating user");
     await pool.query(
       `insert into directory_user
         (first_name, last_name, phone, email, first_name_status, last_name_status, phone_status, email_status) 
@@ -48,6 +49,7 @@ export const postgresService = {
     );
   },
   getAllUsers: async () => {
+    console.log("getting all users");
     const res = await pool.query<DirectoryUser>(`
       select 
         id,

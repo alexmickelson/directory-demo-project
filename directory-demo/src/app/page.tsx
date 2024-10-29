@@ -9,13 +9,12 @@ import {
 import { directoryKeys } from "@/features/directoryUser/directoryKeys";
 
 export default async function Home() {
-  const users = await postgresService.getAllUsers();
   const cache = new QueryClient();
 
-  // await cache.prefetchQuery({
-  //   queryKey: directoryKeys.allPeople,
-  //   queryFn: () => users,
-  // });
+  await cache.prefetchQuery({
+    queryKey: directoryKeys.allPeople,
+    queryFn: postgresService.getAllUsers,
+  });
 
   const dehydrated = dehydrate(cache);
 

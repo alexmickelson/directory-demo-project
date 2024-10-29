@@ -6,7 +6,11 @@ import { createUserAction, getAllUsers } from "./directoryUserServerActions";
 export const useAllPeopleQuery = () =>
   useQuery({
     queryKey: directoryKeys.allPeople,
-    queryFn: async () => await getAllUsers(),
+    queryFn: () => getAllUsers(),
+    // queryFn: async () => {
+    //   const response = await axios.get<DirectoryUser[]>("/api/people");
+    //   return response.data;
+    // },
   });
 
 export const useCreatePersonMutation = () => {

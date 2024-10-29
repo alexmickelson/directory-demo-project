@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.59.16",
+    "axios": "^1.7.7",
     "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.1.0",
-    "next": "14.2.15",
+    "next": "^15",
     "oidc-client-ts": "^3.1.0",
     "pg": "^8.13.0",
     "react": "^18",
